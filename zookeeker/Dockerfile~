@@ -15,7 +15,7 @@ RUN echo "Pin-Priority: 501" | tee -a /etc/apt/preferences.d/cloudera.pref
 RUN apt-get install -y zookeeper-server
 RUN service zookeeper-server init
 
-#CMD ["/etc/init.d/zookeeper-server start"]
+CMD ["/etc/init.d/zookeeper-server start"]
 
 #EXPOSE      6379
 #ENTRYPOINT  ["/usr/bin/redis-server"]
