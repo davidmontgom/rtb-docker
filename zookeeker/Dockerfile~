@@ -7,7 +7,7 @@ RUN echo "deb-src http://archive.cloudera.com/cdh5/ubuntu/precise/amd64/cdh prec
 RUN curl -s http://archive.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -
 RUN sudo apt-get update
 RUN apt-get install -y openjdk-7-jdk
-RUN apt-get install -y build-essential
+RUN apt-get install -y build-essential lsof 
 RUN touch /etc/apt/preferences.d/cloudera.pref
 RUN echo "Package: *" | tee -a /etc/apt/preferences.d/cloudera.pref
 RUN echo "Pin: release o=Cloudera, l=Cloudera" | tee -a /etc/apt/preferences.d/cloudera.pref
@@ -15,9 +15,9 @@ RUN echo "Pin-Priority: 501" | tee -a /etc/apt/preferences.d/cloudera.pref
 RUN apt-get install -y zookeeper-server
 RUN service zookeeper-server init
 
-CMD ["/etc/init.d/zookeeper-server start"]
+#CMD ["/etc/init.d/zookeeper-server start"]
 
-#EXPOSE      6379
+EXPOSE      2181
 #ENTRYPOINT  ["/usr/bin/redis-server"]
 
 
@@ -27,6 +27,8 @@ CMD ["/etc/init.d/zookeeper-server start"]
 #sudo docker run --name kafka  -d -p 6379:6379 davidmontgom/zookeeper  
 #sudo docker run -d -p 127.0.0.1:2181:2181 davidmontgom/zookeeper 
 #sudo docker attach 665b4a1e17b6 #by ID
+#sudo docker exec -it <CONTAINER ID> /bin/bash
+
 #docker rm $(docker ps -aq) remove all contaners
 
 #sudo docker push davidmontgom/redis
